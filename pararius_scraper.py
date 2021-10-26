@@ -13,7 +13,7 @@ import requests
 
 
 def find_listings():
-    html_text = requests.get('https://www.pararius.com/apartments/amsterdam/200-1500/2-rooms/50m2').text
+    html_text = requests.get('https://www.pararius.com/apartments/amsterdam/200-1650/2-rooms/50m2').text
     soup = BeautifulSoup(html_text, 'lxml')
     listing = soup.find('li', class_='search-list__item search-list__item--listing')
     if listing is None:
@@ -23,7 +23,7 @@ def find_listings():
     url = 'https://www.pararius.com' + listing.h2.a['href']
     title = listing.find('h2', class_='listing-search-item__title').text.strip()
     address = listing.find('div', class_='listing-search-item__location').text.strip()
-    price = listing.find('span', class_='listing-search-item__price')
+    price = listing.find('div', class_='listing-search-item__price')
     if price is not None:
         price = price.text.strip()
     area = listing.find('li', class_='illustrated-features__item illustrated-features__item--surface-area')
